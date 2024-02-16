@@ -5,21 +5,22 @@ import { ContactsList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 export class App extends Component {
   state = {
-    contacts: [
-      // { id: nanoid(), name: 'Rosie Simpson', number: '459-12-56' },
-      // { id: nanoid(), name: 'Hermione Kline', number: '443-89-12' },
-      // { id: nanoid(), name: 'Eden Clements', number: '645-17-79' },
-      // { id: nanoid(), name: 'Annie Copeland', number: '227-91-26' },
-    ],
+    contacts: [],
     filter: '',
-    // name: '',
-    // number: '',
   };
 
   formSubmitHandler = data => {
-    this.setState(prevState => ({
-      contacts: [...prevState.contacts, { ...data, id: nanoid() }],
-    }));
+    const { contacts } = this.state;
+
+    const isContactExists = contacts.find(
+      contact => contact.number === data.number
+    );
+
+    isContactExists
+      ? alert('This number already exists')
+      : this.setState(prevState => ({
+          contacts: [...prevState.contacts, { ...data, id: nanoid() }],
+        }));
   };
 
   onFilter = e => {
