@@ -13,11 +13,13 @@ export class App extends Component {
     const { contacts } = this.state;
 
     const isContactExists = contacts.find(
-      contact => contact.number === data.number
+      contact =>
+        contact.number === data.number ||
+        contact.name.toLowerCase() === data.name.toLowerCase()
     );
 
     isContactExists
-      ? alert('This number already exists')
+      ? alert('This contact already exists')
       : this.setState(prevState => ({
           contacts: [...prevState.contacts, { ...data, id: nanoid() }],
         }));
